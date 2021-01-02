@@ -5,7 +5,7 @@ services:
   - docker
 
 before_install:
-  - docker build -t rbiagtan/react-test -f ./client/Dockerfile.dev ./client/Dockerfile.dev
+  - docker build -t rbiagtan/react-test -f ./client/Dockerfile.dev ./client
 
 script:
   - docker run -e CI=true rbiagtan/react-test npm test
