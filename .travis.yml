@@ -1,0 +1,24 @@
+language: generic
+
+sudo: required
+services:
+  - docker
+
+before_install:
+  - docker build -t rbiagtan/react-test -f ./client/Dockerfile.dev ./client/Dockerfile.dev
+
+script:
+  - docker run -e CI=true rbiagtan/react-test npm test
+
+after_success:
+  - docker build -t rbiagtan/multi-client ./client
+  - docker build -t rbiagtan/multi-nginx ./nginx
+  - docker build -t rbiagtan/multi-server ./server
+  - docker build -t rbiagtan/multi-worker ./worker
+  # Log in to the Docker CLI
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
+  # Take those images and push them to Docker Hub
+  - docker push rbiagtan/multi-client
+  - docker push rbiagtan/multi-nginx
+  - docker push rbiagtan/multi-server
+  - docker push rbiagtan/multi-worker
