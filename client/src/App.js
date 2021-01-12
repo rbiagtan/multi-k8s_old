@@ -19,7 +19,7 @@ function App() {
           >
             Learn React
           </a>
-          <Link to="/">Home</Link>
+          <Link to="/">Home Modified Jan. 5 at 11:45 AM</Link>
           <Link to="/otherpage">Other Page</Link>
         </header>
         <div>
