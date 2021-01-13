@@ -1,7 +1,7 @@
 # Build images
 docker build -t rbiagtan/multi-client:latest -t rbiagtan/multi-client:$SHA -f ./client/Dockerfile ./client # Note: $SHA is defined in .travis.yml
-docker build -t rbiagtan/multi-server:latest -f -t rbiagtan/multi-server:$SHA ./server/Dockerfile ./server
-docker build -t rbiagtan/multi-worker:latest -f -t rbiagtan/multi-worker:$SHA ./worker/Dockerfile ./worker
+docker build -t rbiagtan/multi-server:latest -t rbiagtan/multi-server:$SHA ./server/Dockerfile ./server
+docker build -t rbiagtan/multi-worker:latest -t rbiagtan/multi-worker:$SHA ./worker/Dockerfile ./worker
 
 # Take each of the images and push them to Docker Hub
 # Note: we had already logged into Docker Hub within the .travis.yml file
