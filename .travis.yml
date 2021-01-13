@@ -4,15 +4,15 @@ services:
 
 env:
     global:
-      - SHA=$(git rev-parse HEAD) # Assigns current GIT SHA to the variable 'SHA'
-      - CLOUDSDK_CORE_DISABLE_PROMPTS=1 # Configures GCloud CLI to not show any prompts
+      - SHA=$(git rev-parse HEAD)
+      - CLOUDSDK_CORE_DISABLE_PROMPTS=1
 
 before_install:
   - openssl aes-256-cbc -K $encrypted_9f3b5599b056_key -iv $encrypted_9f3b5599b056_iv -in service-account.json.enc -out service-account.json -d
-  - curl https://sdk.cloud.google.com | bash > /dev/null; # Downloads the GCloud SDK and installs it into the Travis CI instance
-  - source $HOME/google-cloud-sdk/path.bash.inc # Look at default install directory of GCloud SDK and source the file path.bash.inc
-  - gcloud components update kubectl # Install and update kubectl into the Travis environment
-  - gcloud auth activate-service-account --key-file service-account.json # Authorizes us into GCloud (still need to create the JSON file)
+  - curl https://sdk.cloud.google.com | bash > /dev/null;
+  - source $HOME/google-cloud-sdk/path.bash.inc
+  - gcloud components update kubectl
+  - gcloud auth activate-service-account --key-file service-account.json
   - gcloud config set project multi-k8s-301504
   - gcloud config set compute/zone us-west1-a
   - gcloud container clusters get-credentials multi-cluster
@@ -23,7 +23,7 @@ script:
   - docker run -e CI=true rbiagtan/react-test npm test
 
 deploy:
-  provider: script # Tells Travis not to deploy but to run this script
-  script: bash ./deploy.sh # Tells Travis to run this bash command and run the deploy.sh file
+  provider: script
+  script: bash ./deploy.sh
   on:
-    branch: master # Tells Travis to execute this deploy script only if there's a change to the master branch
+    branch: master
